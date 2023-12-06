@@ -1,0 +1,21 @@
+
+
+exampleRunner:
+  secretTransforms:
+  - secretName: "apiKeys"
+    secretKeyName: "weatherApi"
+    imageTag: "latest"
+    transformMask: "#{weatherApiKey}"
+    transformTarget: "appsettings.json"
+    volume:
+      type: "VolumeClaim"
+      existingClaimName: "runnerConfig"
+  - secretName: "apiKeys"
+    secretKeyName: "gooleApi"
+    imageTag: "latest"
+    transformMask: "#{googleApiKey}"
+    transformTarget: "config.json"
+    volume:
+      type: "Secret"
+      secretName: "googleConfig"
+      secretKey: "config.json"

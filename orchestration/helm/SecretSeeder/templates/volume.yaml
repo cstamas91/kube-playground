@@ -1,0 +1,15 @@
+{{- define "secret-seeder.volume"}}
+- name: input-{{.secretName}}-{{.secretKeyName}}
+{{ if eq .volume.type "VolumeClaim" }}
+  persistentVolumeClaim:
+    claimName: {{.existingClaimName}}
+{{ else if eq .volume.type "Secret" }}
+  secretName: {{ .volume.secretName }}
+  items:
+  - key: {{ .volume.secretKey }}
+    path: ??
+{{ else }}
+  configMap:
+    name: {{ .volume.configMapName }}    
+{{ end }}
+{{- end }}

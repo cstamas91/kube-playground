@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-runner
+  labels:
+    app: example
+spec:
+  volumes:
+  {{ if .Values.exampleRunner.secretTransforms }}
+  {{- range .Values.exampleRunner.secretTransforms }}
+    {{ include "secret-seeder.volume" . | indent 4 }}
+  {{- end }}
+  {{ end }}
+  initContainers:
+  {{ if .Values.exampleRunner.secretTransforms }}
+  {{- range .Values.exampleRunner.secretTransforms }}
+    {{ include "secret-seeder.initContainer" . | indent 4 }}
+  {{- end }}
+  {{ end }}
+  containers:
+  - name: nginx
+    image: nginx

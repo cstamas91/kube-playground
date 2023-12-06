@@ -1,0 +1,26 @@
+{{- define "secret-seeder.initContainer" }}
+- name: secret-seeder-{{.secretName }}-{{.secretKeyName}}
+  image: cst-secret-seeder:{{.imageTag}}
+  env:
+  - name: SECRET_VALUE
+    valueFrom:
+      secretKeyRef:
+        name: {{.secretName}}
+        key: {{.secretKeyName}}
+  command:
+    - dotnet
+    - /app/SecretSeeder.dll
+    - "-i $SECRET_VALUE"
+    - "-t /tmp/input/{{.transformTarget}}"
+    - "-m {{.transformMask}}"
+  volumeMounts:
+  - name: input-{{.secretName}}-{{.secretKeyName}}
+  {{ if eq volume.type "VolumeClaim" }}
+    mountPath: /tmp/input
+  {{ else if eq volume.type "Secret" }}
+    mountPath: /tmp/input/{{ .transformTarget }} 
+  {{ else }}
+    mountPath: /tmp/input/{{ .transformTarget }}
+    subPath: {{ .transformTarget }}
+  {{ end }}
+{{- end }}

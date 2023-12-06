@@ -1,0 +1,9 @@
+apiVersion: v2
+name: secret-seeder
+description: Tool to create and read secret values, and transform those values into arbitrary config files.
+type: application
+version: 0.0.1
+appVersion: "0.0.1"
+maintainers:
+- email: tamas.csernak91@gmail.com
+  name: cst
