@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecretSeeder", "SecretSeede
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{51FA0FB1-3697-4C96-86E5-93F292623164}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbApp", "DbApp\DbApp.csproj", "{9DAF070E-E376-413D-85CC-A46AF31C86DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{51FA0FB1-3697-4C96-86E5-93F292623164}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51FA0FB1-3697-4C96-86E5-93F292623164}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51FA0FB1-3697-4C96-86E5-93F292623164}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DAF070E-E376-413D-85CC-A46AF31C86DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DAF070E-E376-413D-85CC-A46AF31C86DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DAF070E-E376-413D-85CC-A46AF31C86DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DAF070E-E376-413D-85CC-A46AF31C86DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
