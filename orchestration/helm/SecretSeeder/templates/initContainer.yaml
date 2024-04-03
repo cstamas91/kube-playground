@@ -8,19 +8,21 @@
         name: {{.secretName}}
         key: {{.secretKeyName}}
   command:
-    - dotnet
-    - /app/SecretSeeder.dll
-    - "-i $SECRET_VALUE"
-    - "-t /tmp/input/{{.transformTarget}}"
-    - "-m {{.transformMask}}"
+  - dotnet
+  - /app/SecretSeeder.dll
+  - "-i $SECRET_VALUE"
+  - "-t /tmp/input/{{.transformTarget}}"
+  - "-m {{.transformMask}}"
   volumeMounts:
   - name: input-{{.secretName}}-{{.secretKeyName}}
-  {{ if eq volume.type "VolumeClaim" }}
+  {{- if eq .volume.type "VolumeClaim" }}
     mountPath: /tmp/input
-  {{ else if eq volume.type "Secret" }}
+  {{- else if eq .volume.type "Secret" }}
     mountPath: /tmp/input/{{ .transformTarget }} 
-  {{ else }}
+  {{- else if eq .volume.type "ConfigMap" }}
     mountPath: /tmp/input/{{ .transformTarget }}
     subPath: {{ .transformTarget }}
-  {{ end }}
+  {{- else if eq .volume.type "ProvisionedVolume"}}
+    mountPath: /tmp/input
+  {{- end }}
 {{- end }}

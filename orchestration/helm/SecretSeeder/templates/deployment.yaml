@@ -6,17 +6,17 @@ metadata:
     app: example
 spec:
   volumes:
-  {{ if .Values.exampleRunner.secretTransforms }}
+  {{- if .Values.exampleRunner.secretTransforms }}
   {{- range .Values.exampleRunner.secretTransforms }}
-    {{ include "secret-seeder.volume" . | indent 4 }}
+    {{- include "secret-seeder.volume" . | indent 4 }}
   {{- end }}
-  {{ end }}
+  {{- end }}
   initContainers:
-  {{ if .Values.exampleRunner.secretTransforms }}
+  {{- if .Values.exampleRunner.secretTransforms }}
   {{- range .Values.exampleRunner.secretTransforms }}
-    {{ include "secret-seeder.initContainer" . | indent 4 }}
+    {{- include "secret-seeder.initContainer" . | indent 4 }}
   {{- end }}
-  {{ end }}
+  {{- end }}
   containers:
   - name: nginx
     image: nginx

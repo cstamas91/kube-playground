@@ -1,15 +1,18 @@
 {{- define "secret-seeder.volume"}}
 - name: input-{{.secretName}}-{{.secretKeyName}}
-{{ if eq .volume.type "VolumeClaim" }}
+{{- if eq .volume.type "VolumeClaim" }}
   persistentVolumeClaim:
-    claimName: {{.existingClaimName}}
-{{ else if eq .volume.type "Secret" }}
+    claimName: {{ .volume.existingClaimName }}
+{{- else if eq .volume.type "Secret" }}
   secretName: {{ .volume.secretName }}
   items:
   - key: {{ .volume.secretKey }}
     path: ??
-{{ else }}
+{{- else if eq .volume.type "ConfigMap" }}
   configMap:
-    name: {{ .volume.configMapName }}    
-{{ end }}
+    name: {{ .volume.configMapName }}
+{{- else if eq .volume.type "ProvisionedVolume" }}
+  persistentVolumeClaim:
+    claimName: input-{{ .secretName }}-{{ .secretKeyName }}-pvc
+{{- end }}
 {{- end }}

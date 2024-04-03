@@ -1,0 +1,17 @@
+{{- range .Values.exampleRunner.secretTransforms }}
+{{- if eq .volume.type "ProvisionedVolume" }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: input-{{ .secretName }}-{{ .secretKeyName }}-pvc
+  annotations:
+    "helm.sh/resource-policy": keep
+spec:
+  storageClassName: {{ .volume.storageClassName }}
+  capacity:
+    storage: {{ .volume.storageCapacity }}
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteMany
+{{- end }}
+{{- end }}

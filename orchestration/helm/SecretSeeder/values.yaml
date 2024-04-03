@@ -19,3 +19,13 @@ exampleRunner:
       type: "Secret"
       secretName: "googleConfig"
       secretKey: "config.json"
+  - secretName: "connectionStrings"
+    secretKeyName: "db"
+    imageTag: "latest"
+    transformMask: "#{dbConnectionString}"
+    transformTarget: "appsettings.json"
+    volume:
+      type: "ProvisionedVolume"
+      storageClassName: longhorn
+      storageCapacity: 100Mi
+      
